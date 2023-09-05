@@ -1,0 +1,12 @@
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\bin\Release\net7.0\ZionConnect.Common.Application.deps.json
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\bin\Release\net7.0\ZionConnect.Common.Application.dll
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\bin\Release\net7.0\ZionConnect.Common.Application.pdb
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ZionConnect.Common.Application.csproj.AssemblyReference.cache
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ZionConnect.Common.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ZionConnect.Common.Application.AssemblyInfoInputs.cache
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ZionConnect.Common.Application.AssemblyInfo.cs
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ZionConnect.Common.Application.csproj.CoreCompileInputs.cache
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ZionConnect.Common.Application.dll
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\refint\ZionConnect.Common.Application.dll
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ZionConnect.Common.Application.pdb
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Application\obj\Release\net7.0\ref\ZionConnect.Common.Application.dll

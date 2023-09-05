@@ -1,0 +1,13 @@
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\bin\Debug\net7.0\ZionConnect.Common.Domain.deps.json
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\bin\Debug\net7.0\ZionConnect.Common.Domain.dll
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\bin\Debug\net7.0\ZionConnect.Common.Domain.pdb
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.csproj.AssemblyReference.cache
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.AssemblyInfoInputs.cache
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.AssemblyInfo.cs
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.csproj.CoreCompileInputs.cache
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.dll
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\refint\ZionConnect.Common.Domain.dll
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.pdb
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ref\ZionConnect.Common.Domain.dll
+C:\_Hoang\Source\Repos\ZionConnect\ZionConnect.Common.Domain\obj\Debug\net7.0\ZionConnect.Common.Domain.sourcelink.json
