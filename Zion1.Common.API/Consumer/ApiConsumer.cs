@@ -4,7 +4,7 @@ using Zion1.Common.Helper;
 
 namespace Zion1.Common.API.Consumer
 {
-    public class ApiComsumer
+    public class ApiConsumer
     {
         private ApiSettings _apiSettings = new ApiSettings();
         private ApiResource _apiResource = new ApiResource();
@@ -22,7 +22,7 @@ namespace Zion1.Common.API.Consumer
             } 
         }
 
-        public ApiComsumer()
+        public ApiConsumer()
         {
             //Get Api Settings from config file
             _apiSettings = GetApiSettings(); 
@@ -30,7 +30,7 @@ namespace Zion1.Common.API.Consumer
             ApiClient = new RestClient(_apiSettings.BaseUrl);
         }
 
-        public ApiComsumer(string resourceName) : this()
+        public ApiConsumer(string resourceName) : this()
         {
             ResourceName = resourceName;
         }
