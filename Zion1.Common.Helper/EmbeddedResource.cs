@@ -6,10 +6,10 @@ namespace Zion1.Common.Helper
 {
     public static class EmbeddedResource
     {
-        public static string GetEmbeddedFile(string fileName)
+        public static string GetEmbeddedFile(string fileName, Assembly assembly)
         {
             string fileContent = string.Empty;
-            var embeddedProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());
+            var embeddedProvider = new EmbeddedFileProvider(assembly);
 
             using (var reader = embeddedProvider.GetFileInfo(fileName).CreateReadStream())
             {

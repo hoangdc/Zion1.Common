@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using Zion1.Common.Helper;
 
 namespace Zion1.Common.API.Consumer
 {
     public class ApiConsumer
     {
-        private ApiSettings _apiSettings = new ApiSettings();
         private ApiResource _apiResource = new ApiResource();
 
+        public ApiSettings ApiSettings { get; set; } = new ApiSettings();
         public RestClient ApiClient { get; set; } = new RestClient();
         public RestRequest ApiRequest { get; set; } = new RestRequest();
 
@@ -17,37 +16,49 @@ namespace Zion1.Common.API.Consumer
             set 
             {
                 //Get specific Api Resource 
-                _apiResource = _apiSettings.GetApiResource(value);
+                _apiResource = ApiSettings.GetApiResource(value);
                 ApiRequest = new RestRequest(_apiResource.Resource, _apiResource.Method);
+                ApiRequest.AddHeader("Content-Type", "application/json");
             } 
         }
 
-        public ApiConsumer()
+        public Dictionary<string, string> Params { get; set; } = new Dictionary<string, string>();
+        public object? Body { get; set; }
+
+        /// <summary>
+        /// Construct Api Consumer
+        /// </summary>
+        /// <param name="apiSettings">This is api settings from json config</param>
+        public ApiConsumer(ApiSettings apiSettings)
         {
             //Get Api Settings from config file
-            _apiSettings = GetApiSettings(); 
-            //Init Apiclient and ApiRequest with Api Resource above
-            ApiClient = new RestClient(_apiSettings.BaseUrl);
+            ApiSettings = apiSettings;
+            //Init ApiClient and ApiRequest with Api Resource above
+            ApiClient = new RestClient(ApiSettings.BaseUrl);
+
         }
 
-        public ApiConsumer(string resourceName) : this()
-        {
-            ResourceName = resourceName;
-        }
-
-        private ApiSettings GetApiSettings(string apiSettingConfigFile = "ApiSettings.json")
-        {
-            var apiSettingJson = EmbeddedResource.GetEmbeddedFile(apiSettingConfigFile);
-            return JsonConvert.DeserializeObject<ApiSettings>(apiSettingJson);
-        }
-
-        public async Task<List<T>> ExecuteAsync<T>(string resourceName = "")
+        public async Task<RestResponse> ExecuteAsync(string resourceName)
         {
             if(!string.IsNullOrEmpty(resourceName))
                 ResourceName = resourceName;
-            var response = await ApiClient.ExecuteAsync<T>(ApiRequest);
 
-            return JsonConvert.DeserializeObject<List<T>>(response.Content);
+            if(Params.Count > 0)
+            {
+                foreach (var param in Params)
+                {
+                    ApiRequest.AddUrlSegment(param.Key, param.Value);
+                }
+                Params.Clear();
+            }
+
+            if(Body != null)
+            {
+                ApiRequest.AddBody(JsonConvert.SerializeObject(Body), "application/json");
+            }
+
+            var response = await ApiClient.ExecuteAsync(ApiRequest);
+            return response;
         }
     }
 }
