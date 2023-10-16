@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Zion1.Common.Domain.Entities
 {
-    public abstract class BaseEntity<T>
+    public abstract class EntityBase<T>
     {
         [Key]
         public T? Id { get; set; }

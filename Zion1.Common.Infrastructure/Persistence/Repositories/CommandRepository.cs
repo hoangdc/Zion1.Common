@@ -5,36 +5,36 @@ namespace Zion1.Common.Infrastructure.Persistence.Repositories
 {
     public class CommandRepository<T> : ICommandRepository<T> where T : class
     {
-        protected readonly DbContext _commonDBContext;
-        public CommandRepository(DbContext commonDBContext) 
+        public readonly DbContext DBContext;
+        public CommandRepository(DbContext dbContext) 
         {
-            _commonDBContext = commonDBContext;
+            DBContext = dbContext;
         }
 
         public async Task<T> AddAsync(T item)
         {
-            await _commonDBContext.Set<T>().AddAsync(item);
-            await _commonDBContext.SaveChangesAsync();
+            await DBContext.Set<T>().AddAsync(item);
+            await DBContext.SaveChangesAsync();
             return item;
         }
 
         public async Task<T> UpdateAsync(T item)
         {
-            _commonDBContext.Set<T>().Update(item);
-            await _commonDBContext.SaveChangesAsync();
+            DBContext.Set<T>().Update(item);
+            await DBContext.SaveChangesAsync();
             return item;
         }
 
         public async Task<T> DeleteAsync(T item)
         {
-            _commonDBContext.Set<T>().Remove(item);
-            await _commonDBContext.SaveChangesAsync();
+            DBContext.Set<T>().Remove(item);
+            await DBContext.SaveChangesAsync();
             return item;
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _commonDBContext.Set<T>().FindAsync(id);
+            return await DBContext.Set<T>().FindAsync(id);
         }
 
     }

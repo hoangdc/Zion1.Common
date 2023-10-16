@@ -2,7 +2,7 @@
 
 namespace Zion1.Common.Domain
 {
-    public class AppSetting : BaseEntity<int>
+    public class AppSetting : EntityBase<int>
     {
         /// <summary>
         /// Gets or sets the ReferenceKey
