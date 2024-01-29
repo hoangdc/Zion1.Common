@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using RestSharp;
 
-namespace Zion1.Common.API.Consumer
+namespace Zion1.Common.Helper.Api
 {
 
     public class ApiSettings

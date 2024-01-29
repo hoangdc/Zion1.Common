@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 
-namespace Zion1.Common.API.Consumer
+namespace Zion1.Common.Helper.Api
 {
     public class ApiConsumer
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Zion1.Common.API.Controller
+namespace Zion1.Common.Api.Controller
 {
     public class CoreController : ControllerBase
     {
