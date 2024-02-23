@@ -29,15 +29,7 @@ namespace Zion1.Common.Components
 
         public async Task<T> GetAsync<T>(string resourceName)
         {
-            if (IsServer)
-            {
-                var restResponse = await ApiConsumer.ExecuteServerAsync(resourceName);
-                return restResponse.Convert<T>();
-            }
-            else//Client
-            {
-                return await ApiConsumer.ExecuteClientAsync<T>(resourceName);
-            }
+            return await ApiConsumer.ExecuteJsonAsync<T>(resourceName);
         }
 
         public async Task SaveAsync<T>(T selectedItem, string resourceName)
@@ -62,30 +54,6 @@ namespace Zion1.Common.Components
                 MessageResult = "Item not found!";
             }
         }
-
-        public async Task DeleteAsync<T>(T selectedItem, string resourceName)
-        {
-            if (selectedItem != null)
-            {
-                //ApiConsumer.Params.Add("clientId", clientInfo.ClientId.ToString());
-                var response = await ApiConsumer.ExecuteAsync(resourceName);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    //Logic for handling unsuccessful response
-                    MessageResult = response.StatusCode + " - " + response.Content;
-                }
-                else
-                {
-                    MessageResult = "Success";
-                }
-            }
-            else
-            {
-                MessageResult = "Item not found!";
-            }
-        }
-
 
         protected override Task OnAfterRenderAsync(bool firstRender)
         {

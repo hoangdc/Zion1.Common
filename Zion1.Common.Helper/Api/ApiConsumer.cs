@@ -57,31 +57,13 @@ namespace Zion1.Common.Helper.Api
             return await ApiClient.ExecuteAsync(apiRequest);
         }
 
-        public async Task<RestResponse> ExecuteServerAsync(string resourceName)
-        {
-            var apiRequest = GetApiRequest(resourceName);
-
-            if (Params.Count > 0)
-            {
-                foreach (var param in Params)
-                {
-                    apiRequest.AddUrlSegment(param.Key, param.Value);
-                }
-                Params.Clear();
-            }
-
-            if (Body != null)
-            {
-                apiRequest.AddBody(JsonConvert.SerializeObject(Body), "application/json");
-            }
-
-            //Init ApiClient
-            ApiClient = new RestClient(ApiSettings.BaseUrl);
-
-            return await ApiClient.ExecuteAsync(apiRequest);
-        }
-
-        public async Task<TResponse?> ExecuteClientAsync<TResponse>(string resourceName)
+        /// <summary>
+        /// This method uses for SSR, CSR and Auto
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="resourceName"></param>
+        /// <returns></returns>
+        public async Task<TResponse?> ExecuteJsonAsync<TResponse>(string resourceName)
         {
             var restResource = ApiSettings.GetApiResource(resourceName);
             switch (restResource.Method)
@@ -97,7 +79,6 @@ namespace Zion1.Common.Helper.Api
                 case Method.Put:
                     return await this.PutJsonAsync<object, TResponse>(ApiSettings.BaseUrl + restResource.Resource, Body);
                 case Method.Delete:
-                    return await this.PutJsonAsync<object, TResponse>(restResource.Resource, Body);
                 default:
                     return default(TResponse);
             }
