@@ -26,10 +26,10 @@ namespace Zion1.Common.Helper.Api
 
         public static async Task<IServiceCollection> AddApiSettings(this IServiceCollection services)
         {
-            //Register HttpClient
-            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7197") });
-
+            //Get Api Settings from ApiSettings.json 
             ApiSettings = await GetApiSettings();
+            //Register HttpClient
+            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(ApiSettings.BaseUrl) });
             return services;
         }
 
