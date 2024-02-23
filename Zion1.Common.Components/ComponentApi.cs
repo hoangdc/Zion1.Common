@@ -15,17 +15,6 @@ namespace Zion1.Common.Components
         public TelerikNotification NotificationResult { get; set; } = new();
         public string MessageResult { get; set; } = string.Empty;
 
-        protected async override Task OnInitializedAsync()
-        {
-            await OnInitAsync();
-
-            await base.OnInitializedAsync();
-        }
-
-        protected virtual Task OnInitAsync()
-        {
-            return Task.CompletedTask;
-        }
 
         public async Task<T> GetAsync<T>(string resourceName)
         {
