@@ -1,16 +1,41 @@
-﻿using Microsoft.Extensions.FileProviders;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Reflection;
 using System.Text;
+using Zion1.Common.Helper.Cache;
 
 namespace Zion1.Common.Helper.Api
 {
     public static class ApiHelper
     {
-        public static ApiSettings GetApiSettings(string apiSettingConfigFile = "ApiSettings.json")
+        private static ICacheService _cache = new InMemoryCache();
+
+        public static ApiSettings ApiSettings
         {
-            var apiSettingJson = GetEmbeddedFile(apiSettingConfigFile, Assembly.GetCallingAssembly());
+            get
+            {
+                return _cache.Get<ApiSettings>("ApiSettings_Global");
+            }
+            set
+            {
+                _cache.Set("ApiSettings_Global", value, 24 * 60);
+            }
+        }
+
+        public static async Task<IServiceCollection> AddApiSettings(this IServiceCollection services)
+        {
+            //Register HttpClient
+            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7197") });
+
+            ApiSettings = await GetApiSettings();
+            return services;
+        }
+
+        public static async Task<ApiSettings> GetApiSettings(string apiSettingConfigFile = "ApiSettings.json")
+        {
+            var apiSettingJson = GetEmbeddedFile(apiSettingConfigFile, Assembly.GetEntryAssembly());
             return Convert<ApiSettings>(apiSettingJson);
         }
 

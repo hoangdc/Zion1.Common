@@ -1,29 +1,17 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
+using System.Net;
 
 namespace Zion1.Common.Helper.Api
 {
-    public class ApiConsumer
+    public class ApiConsumer : RestClient
     {
-        private ApiResource _apiResource = new ApiResource();
-
         public ApiSettings ApiSettings { get; set; } = new ApiSettings();
         public RestClient ApiClient { get; set; } = new RestClient();
-        public RestRequest ApiRequest { get; set; } = new RestRequest();
-
-        public string ResourceName 
-        { 
-            set 
-            {
-                //Get specific Api Resource 
-                _apiResource = ApiSettings.GetApiResource(value);
-                ApiRequest = new RestRequest(_apiResource.Resource, _apiResource.Method);
-                ApiRequest.AddHeader("Content-Type", "application/json");
-            } 
-        }
 
         public Dictionary<string, string> Params { get; set; } = new Dictionary<string, string>();
         public object? Body { get; set; }
+        
 
         /// <summary>
         /// Construct Api Consumer
@@ -33,32 +21,87 @@ namespace Zion1.Common.Helper.Api
         {
             //Get Api Settings from config file
             ApiSettings = apiSettings;
-            //Init ApiClient and ApiRequest with Api Resource above
-            ApiClient = new RestClient(ApiSettings.BaseUrl);
+            
+        }
 
+        public RestRequest GetApiRequest(string resourceName)
+        {
+            var restResource = ApiSettings.GetApiResource(resourceName);
+            var restRequest = new RestRequest(restResource.Resource, restResource.Method);
+            restRequest.AddHeader("Content-Type", "application/json");
+
+            return restRequest;
         }
 
         public async Task<RestResponse> ExecuteAsync(string resourceName)
         {
-            if(!string.IsNullOrEmpty(resourceName))
-                ResourceName = resourceName;
+            var apiRequest = GetApiRequest(resourceName);
 
-            if(Params.Count > 0)
+            if (Params.Count > 0)
             {
                 foreach (var param in Params)
                 {
-                    ApiRequest.AddUrlSegment(param.Key, param.Value);
+                    apiRequest.AddUrlSegment(param.Key, param.Value);
                 }
                 Params.Clear();
             }
 
-            if(Body != null)
+            if (Body != null)
             {
-                ApiRequest.AddBody(JsonConvert.SerializeObject(Body), "application/json");
+                apiRequest.AddBody(JsonConvert.SerializeObject(Body), "application/json");
             }
 
-            var response = await ApiClient.ExecuteAsync(ApiRequest);
-            return response;
+            //Init ApiClient
+            ApiClient = new RestClient(ApiSettings.BaseUrl);
+
+            return await ApiClient.ExecuteAsync(apiRequest);
+        }
+
+        public async Task<RestResponse> ExecuteServerAsync(string resourceName)
+        {
+            var apiRequest = GetApiRequest(resourceName);
+
+            if (Params.Count > 0)
+            {
+                foreach (var param in Params)
+                {
+                    apiRequest.AddUrlSegment(param.Key, param.Value);
+                }
+                Params.Clear();
+            }
+
+            if (Body != null)
+            {
+                apiRequest.AddBody(JsonConvert.SerializeObject(Body), "application/json");
+            }
+
+            //Init ApiClient
+            ApiClient = new RestClient(ApiSettings.BaseUrl);
+
+            return await ApiClient.ExecuteAsync(apiRequest);
+        }
+
+        public async Task<TResponse?> ExecuteClientAsync<TResponse>(string resourceName)
+        {
+            var restResource = ApiSettings.GetApiResource(resourceName);
+            switch (restResource.Method)
+            {
+                case Method.Get:
+                    if (Params.Count > 0)
+                    {
+                        return await this.GetJsonAsync<TResponse>(ApiSettings.BaseUrl + restResource.Resource, Params);
+                    }
+                    return await this.GetJsonAsync<TResponse>(ApiSettings.BaseUrl + restResource.Resource);
+                case Method.Post:
+                    return await this.PostJsonAsync<object, TResponse>(ApiSettings.BaseUrl + restResource.Resource, Body);
+                case Method.Put:
+                    return await this.PutJsonAsync<object, TResponse>(ApiSettings.BaseUrl + restResource.Resource, Body);
+                case Method.Delete:
+                    return await this.PutJsonAsync<object, TResponse>(restResource.Resource, Body);
+                default:
+                    return default(TResponse);
+            }
+
         }
     }
 }

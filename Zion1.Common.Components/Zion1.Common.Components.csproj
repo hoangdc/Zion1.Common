@@ -17,4 +17,8 @@
     <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Zion1.Common.Helper\Zion1.Common.Helper.csproj" />
+  </ItemGroup>
+
 </Project>
