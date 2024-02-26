@@ -4,23 +4,22 @@ using Newtonsoft.Json;
 using RestSharp;
 using System.Reflection;
 using System.Text;
+using ZiggyCreatures.Caching.Fusion;
 using Zion1.Common.Helper.Cache;
 
 namespace Zion1.Common.Helper.Api
 {
     public static class ApiHelper
     {
-        private static ICacheService _cache = new InMemoryCache();
-
         public static ApiSettings ApiSettings
         {
             get
             {
-                return _cache.Get<ApiSettings>("ApiSettings_Global");
+                return CacheService.CacheData.GetOrDefault<ApiSettings>("ApiSettings_Global");
             }
             set
             {
-                _cache.Set("ApiSettings_Global", value, 24 * 60);
+                CacheService.CacheData.Set("ApiSettings_Global", value, options => { options.SetDurationInfinite(); });
             }
         }
 
