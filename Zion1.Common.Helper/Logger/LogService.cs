@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Serilog.Enrichers;
-using Serilog.Enrichers.Sensitive;
 
 namespace Zion1.Common.Helper.Logger
 {

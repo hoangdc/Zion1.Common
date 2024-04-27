@@ -15,7 +15,7 @@ namespace Zion1.Common.Domain.Entities
         
 
         [NotMapped]
-        public List<DomainEvent> DomainEvents { get; } = new List<DomainEvent>();
+        public List<DomainEvent> DomainEvents { get; } = [];
 
         public void AddDomainEvent(DomainEvent domainEvent)
         {
